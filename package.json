@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc -b && copyfiles ./src/views/*.hbs ./build/",
+    "build": "tsc -b && copyfiles ./src/views/*.hbs ./build/ && copyfiles ./src/public/stylesheets/style.sass ./build/",
     "start": "node ./src/bin/www",
     "start:build": "npm run build && node ./build/src/bin/www.js",
     "start:dev": "node -r dotenv/config -r tsconfig-paths/register -r ts-node/register ./src/bin/www.ts",
