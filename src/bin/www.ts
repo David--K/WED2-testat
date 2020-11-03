@@ -6,6 +6,7 @@ import app = require('../app');
 import d = require('debug');
 const debug = d('testat1:server');
 import http = require('http');
+import { HttpError } from 'http-errors';
 /**
  * Get port from environment and store in Express.
  */
@@ -27,7 +28,7 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-function normalizePort(val: any) {
+function normalizePort(val: string) {
   const port = parseInt(val, 10);
   if (isNaN(port)) {
     // named pipe
@@ -44,7 +45,7 @@ function normalizePort(val: any) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error: any) {
+function onError(error: HttpError) {
   if (error.syscall !== 'listen') {
     throw error;
   }
