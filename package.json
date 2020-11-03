@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -b && copyfiles ./src/views/*.hbs ./build/",
     "start": "node ./src/bin/www",
-    "start:build": "npm run build && node -r ./src/tsconfig-paths-bootstrap.js .",
+    "start:build": "npm run build && node ./build/src/bin/www.js",
     "start:dev": "node -r dotenv/config -r tsconfig-paths/register -r ts-node/register ./src/bin/www.ts",
     "prettier": "prettier --config ./.prettierrc.js --write \"src/**/*.ts\""
-
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -35,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "chai": "^4.2.0",
+    "copyfiles": "^2.4.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
