@@ -1,27 +1,36 @@
 <h1>{{title}}</h1>
-<nav>
-  <button>Create new Note</button>
-  <select name="style" id="style">
-    <option value="dark">Dark-Style</option>
-    <option value="light" selected>Light-Style</option>
-  </select>
-</nav>
-<div id="todo-control">
-  <button>By finished Date</button>
-  <button>By created Date</button>
-  <button>By Importance Date</button>
-  <button>Show finished</button>
-</div>
-<div id="todo-list">
-  {{#each todos}}
-    <div class="todo-item">
-      <label for="finished"> Finished</label><br>
-      <input type="checkbox" id="finished" name="finished" checked="{{isFinished}}">
-      <h3>{{title}}</h3>
-      <textarea id="w3review" name="w3review" rows="4" cols="50">
-        {{description}}
-      </textarea>
-      <button>Edit</button><!-- Call function with appropriate ID -->
-    </div>
-  {{/each}}
-</div>
+<section id="mainsection">
+  <header>
+    <section>
+      <a class="left" href="./todo?theme={{theme}}">Create new Note</a>
+      <form class="right">
+        <select name="theme" id="theme" onchange="this.form.submit()">
+          <option value="light" {{#equal theme "light" "selected"}}{{/equal}}>Light-Style</option>
+          <option value="dark" {{#equal theme "dark" "selected"}}{{/equal}}>Dark-Style</option>
+        </select>
+      </form>
+    </section>
+    <section id="filter">
+      <div class="left">
+        <a href="/?filter=done&ascending={{ascending}}&theme={{theme}}">By finished Date {{showSortIcon "done" filter ascending}}</a>
+        <a href="/?filter=created&ascending={{ascending}}&theme={{theme}}">By created Date {{showSortIcon "created" filter ascending}}</a>
+        <a href="/?filter=importance&ascending={{ascending}}&theme={{theme}}">By Importance {{showSortIcon "importance" filter ascending}}</a>
+      </div>
+      <a class="right" href="/?filter={{filter}}&ascending={{ascending}}&onlyFinished={{onlyFinished}}&theme={{theme}}">Show finished</a>
+    </section>
+  </header>
+  <main>
+    <section id="todo-list">
+      {{#each todos}}
+        <aside class="todo-item">
+          <h3>{{title}}</h3> 
+          <p>{{importance}}</p>
+          <label for="finished"> Finished</label>
+          <input type="checkbox" id="finished" name="finished" disabled {{#if finished}}checked{{/if}}>
+          <textarea id="w3review" name="w3review" rows="4" cols="50" disabled>{{description}}</textarea>
+          <a href="./todo/{{_id}}"><button>Edit</button></a><!-- Call function with appropriate ID -->
+        </aside>
+      {{/each}}
+    </section>
+  </main>
+</section>

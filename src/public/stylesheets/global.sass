@@ -1,0 +1,39 @@
+$light-background: #fafafa
+$light-text: #000000
+$dark-background: #212121
+$dark-text: #ffffff
+
+@mixin theme-colors($dark-theme: true)
+  @if $dark-theme
+    background-color: $dark-background
+    color: $dark-text
+  @else
+    background-color: $light-background
+    color: $light-text
+
+header
+  grid-column: 1 / 3
+  background-color: yellow
+  section
+    display: grid
+    grid-template-rows: auto
+    grid-template-columns: repeat(4, 1fr);
+    .left 
+      grid-column: 1 / 4
+    .right
+      grid-column: 4 / 5;
+
+a
+  font-weight: 400;
+  color: #007bff;
+  background-color: transparent;
+
+main, main ~ section
+  display: contents
+  background-color: green
+
+#mainsection 
+  display: grid
+  grid-template-rows: auto auto
+  background-color: blue
+  grid-auto-flow: dense;

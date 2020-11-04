@@ -1,0 +1,51 @@
+<h1>{{title}}</h1>
+<div id="todo-create">
+  <div id="messages">
+    {{#each messages}}
+      <p>{{this}}</p></br>
+    {{/each}}
+  </div>
+  <form action="/todo" method="POST">
+    {{#if isCreate}}
+      <input type="hidden" id="theme" name="theme" value="{{theme}}"></br>
+      <label for="title">Titel</label>
+      <input type="text" id="title" name="title"></br>
+      <label for="description">Beschreibung</label>
+      <textarea id="description" name="description" rows="4" cols="50"></textarea></br>
+      <label for="importance">Wichtigkeit</label>
+      <fieldset id="importance">
+        <input type="radio" value="1" name="importance">1</input>
+        <input type="radio" value="2" name="importance">2</input>
+        <input type="radio" value="3" name="importance">3</input>
+        <input type="radio" value="4" name="importance">4</input>
+        <input type="radio" value="5" name="importance">5</input>
+      </fieldset></br>
+      <label for="done">Erledigt bis</label>
+      <input type="date" id="done" name="done"></br>
+      <input type="submit" value="Absenden">
+    {{else}}
+      {{#with todo}}
+      <input type="hidden" id="id" name="id" value="{{_id}}"></br>
+      <input type="hidden" id="theme" name="theme" value="{{theme}}"></br>
+      <label for="title">Titel</label>
+      <input type="text" id="title" name="title" value="{{title}}"></br>
+      <label for="description">Beschreibung</label>
+      <textarea id="description" name="description" rows="4" cols="50">{{description}}</textarea></br>
+      <label for="importance">Wichtigkeit</label>
+      <fieldset id="importance">
+        <input type="radio" value="1" name="importance" {{#equal importance 1 "checked"}}{{/equal}}>1</input>
+        <input type="radio" value="2" name="importance" {{#equal importance 2 "checked"}}{{/equal}}>2</input>
+        <input type="radio" value="3" name="importance" {{#equal importance 3 "checked"}}{{/equal}}>3</input>
+        <input type="radio" value="4" name="importance" {{#equal importance 4 "checked"}}{{/equal}}>4</input>
+        <input type="radio" value="5" name="importance" {{#equal importance 5 "checked"}}{{/equal}}>5</input>
+      </fieldset></br>
+      <label for="doneAt">Erledigt bis</label>
+      <input type="date" id="done" name="done" value="{{prepareDateForInput done}}"></br>
+      <label for="finished">Erledigt</label>
+      <input type="checkbox" id="finished" name="finished" value="true" {{#if finished}}checked{{/if}}></br>
+      <input type="submit" value="Absenden">
+      {{/with}}
+    {{/if}}
+  </form>
+  <a href="/?theme={{theme}}"><button>Cancel</button></a>
+</div>
