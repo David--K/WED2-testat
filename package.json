@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc -b && copyfiles ./src/views/*.hbs ./build/ && copyfiles ./src/public/stylesheets/style.sass ./build/",
-    "start": "node ./src/bin/www",
-    "start:build": "npm run build && node ./build/src/bin/www.js",
+    "build": "tsc -b && copyfiles -f ./src/views/*.hbs ./build/views && copyfiles -f ./src/public/stylesheets/*.sass ./build/public/stylesheets",
+    "start:build": "node ./build/bin/www.js",
     "start:dev": "nodemon ./src/bin/www.ts -e js,sass,ts,hbs",
     "prettier": "prettier --config ./.prettierrc.js --write \"src/**/*.ts\""
   },
