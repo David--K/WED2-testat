@@ -2,8 +2,8 @@
 <section id="mainsection">
   <header>
     <section>
-      <a class="left" href="./todo?theme={{theme}}">Create new Note</a>
-      <form class="right">
+      <a id="left-item" href="./todo?theme={{theme}}"><button>Create new Note</button></a>
+      <form class="right-item">
         <select name="theme" id="theme" onchange="this.form.submit()">
           <option value="light" {{#equal theme "light" "selected"}}{{/equal}}>Light-Style</option>
           <option value="dark" {{#equal theme "dark" "selected"}}{{/equal}}>Dark-Style</option>
@@ -11,26 +11,37 @@
       </form>
     </section>
     <section id="filter">
-      <div class="left">
-        <a href="/?filter=done&ascending={{ascending}}&theme={{theme}}">By finished Date {{showSortIcon "done" filter ascending}}</a>
-        <a href="/?filter=created&ascending={{ascending}}&theme={{theme}}">By created Date {{showSortIcon "created" filter ascending}}</a>
-        <a href="/?filter=importance&ascending={{ascending}}&theme={{theme}}">By Importance {{showSortIcon "importance" filter ascending}}</a>
+      <div class="left-item filter-options">
+        <a class="option" href="/?filter=done&ascending={{ascendingNext}}&theme={{theme}}&onlyFinished={{onlyFinished}}">
+          <button class="{{#equal filter "done" "selected"}}{{/equal}}">By finished Date {{showSortIcon "done" filter ascending}}</button>
+        </a>
+        <a class="option" href="/?filter=created&ascending={{ascendingNext}}&theme={{theme}}&onlyFinished={{onlyFinished}}">
+          <button class="{{#equal filter "created" "selected"}}{{/equal}}">By created Date {{showSortIcon "created" filter ascending}}</button>
+        </a>
+        <a class="option" href="/?filter=importance&ascending={{ascendingNext}}&theme={{theme}}&onlyFinished={{onlyFinished}}">
+          <button class="{{#equal filter "importance" "selected"}}{{/equal}}">By Importance {{showSortIcon "importance" filter ascending}}</button>
+        </a>
       </div>
-      <a class="right" href="/?filter={{filter}}&ascending={{ascending}}&onlyFinished={{onlyFinished}}&theme={{theme}}">Show finished</a>
+      <a class="right-item" href="/?filter={{filter}}&ascending={{ascending}}&onlyFinished={{onlyFinishedReverted}}&theme={{theme}}">
+        <button class="{{#if onlyFinished}}selected{{/if}}">Show finished</button>
+      </a>
     </section>
   </header>
   <main>
-    <section id="todo-list">
-      {{#each todos}}
-        <aside class="todo-item">
-          <h3>{{title}}</h3> 
-          <p>{{importance}}</p>
+    {{#each todos}}
+      <aside class="todo-item">
+        <div class="todo-finished">
           <label for="finished"> Finished</label>
           <input type="checkbox" id="finished" name="finished" disabled {{#if finished}}checked{{/if}}>
-          <textarea id="w3review" name="w3review" rows="4" cols="50" disabled>{{description}}</textarea>
-          <a href="./todo/{{_id}}"><button>Edit</button></a><!-- Call function with appropriate ID -->
-        </aside>
-      {{/each}}
-    </section>
+        </div>
+        <div class="todo-info">
+          <h3 class="todo-title">{{title}}</h3>
+          <p class="todo-importance">{{#lightning importance}}{{/lightning}}</p>
+          <div class="todo-description" id="description" name="description"><p>{{description}}</p></div>
+        </div>
+        <a class="todo-edit" href="./todo/{{_id}}?theme={{../theme}}"><button>Edit</button></a><!-- Call function with appropriate ID -->
+      </aside>
+    {{/each}}
+    {{#if todos}}{{else}}<p>Keine Todos vorhanden</p>{{/if}}
   </main>
 </section>

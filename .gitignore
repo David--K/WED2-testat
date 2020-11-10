@@ -1,6 +1,7 @@
 
 .ionide
 build
+data
 # Logs
 logs
 *.log

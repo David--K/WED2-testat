@@ -5,7 +5,6 @@ import cookieParser = require('cookie-parser');
 import logger = require('morgan');
 import sassMiddleware = require('node-sass-middleware');
 import indexRouter = require('./routes/index');
-import usersRouter = require('./routes/users');
 import todoRouter = require('./routes/todo');
 import hbs = require('hbs');
 
@@ -21,9 +20,15 @@ hbs.registerHelper('equal', function <T>(value: T, otherValue: T, returnIfrue: s
 hbs.registerHelper('prepareDateForInput', function (value: Date) {
   return value.toISOString().substring(0, 10);
 });
-
 hbs.registerHelper('showSortIcon', function (current: string, filter: string, ascending: boolean) {
-  return current === filter ? (ascending ? '↑' : '↓') : '';
+  return current === filter ? (ascending ? '↓' : '↑') : '';
+});
+hbs.registerHelper('lightning', function (num: number) {
+  let lightning = '';
+  for (let i = 0; i < num; i++) {
+    lightning += '🗲';
+  }
+  return lightning;
 });
 
 app.use(logger('dev'));
@@ -42,7 +47,6 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter as express.Application);
-app.use('/users', usersRouter as express.Application);
 app.use('/todo', todoRouter as express.Application);
 
 // catch 404 and forward to error handler

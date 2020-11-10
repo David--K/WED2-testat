@@ -35,7 +35,7 @@ router.post('/', function (req, res) {
       todoStore.update(req.body.id, todo, (err, success) => {
         if (success) {
           messages.push('Todo ' + todo.title + ' wurde angepasst.');
-          res.redirect('/');
+          res.redirect('/?theme=' + themeDetector(req));
         } else {
           messages.push('Etwas ist schief gelaufen versuchen sie es erneut.');
           renderEmpty(res, req, messages);
@@ -43,7 +43,7 @@ router.post('/', function (req, res) {
       });
     } else {
       todoStore.add(todo, (err, newDoc) => {
-        res.redirect('/');
+        res.redirect('/?theme=' + themeDetector(req));
       });
     }
   } else {

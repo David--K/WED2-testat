@@ -21,9 +21,11 @@ const render = (res: express.Response, theme: string, filter: string, ascending:
         theme: theme,
         title: 'Home',
         todos: todos,
-        ascending: !ascending,
+        ascending: ascending,
+        ascendingNext: !ascending,
         filter: filter,
-        onlyFinished: !onlyFinished,
+        onlyFinished: onlyFinished,
+        onlyFinishedReverted: !onlyFinished,
       });
     },
     filter,
